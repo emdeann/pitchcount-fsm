@@ -1,8 +1,6 @@
-from fsm import MooreMachine, State
+from fsm import MooreMachine, State, get_graph
 
 pitch_count = MooreMachine('Pitch Count')
-balls = 0
-strikes = 0
 count_states = {(i, j) : State(f'{i}-{j}', initial=(i == 0 and j == 0)) for i in range(4) for j in range(3)}
 
 accepting_states = {'Base': State('Base'), 'Out': State('Out')}
@@ -22,4 +20,6 @@ for key, state in count_states.items():
         
 for state in accepting_states.values():
     state[r'New Batter'] = count_states[(0, 0)]
+
+get_graph(pitch_count).draw('count.png', prog='dot')
     
